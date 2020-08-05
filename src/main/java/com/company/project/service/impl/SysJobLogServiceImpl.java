@@ -15,7 +15,8 @@ import com.company.project.service.SysJobLogService;
  * @date 2020年3月18日
  */
 @Service("sysJobLogService")
-public class SysJobLogServiceImpl extends ServiceImpl<SysJobLogMapper, SysJobLogEntity> implements SysJobLogService {
+public class SysJobLogServiceImpl extends ServiceImpl<SysJobLogMapper, SysJobLogEntity> implements SysJobLogService
+{
 
 
 }

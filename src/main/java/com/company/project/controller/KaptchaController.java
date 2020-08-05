@@ -29,19 +29,22 @@ import java.io.ByteArrayOutputStream;
 @RestController
 @Slf4j
 @RequestMapping("/sys")
-public class KaptchaController {
+public class KaptchaController
+{
     //这里的captchaProducer要和KaptchaConfig里面的bean命名一样
     @Resource
     private Producer captchaProducer;
 
     @ApiOperation(value = "生成验证码")
     @GetMapping(value = "/getVerify")
-    public void getVerify(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void getVerify(HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
 
         //用字节数组存储
         byte[] captchaChallengeAsJpeg;
         ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
-        try (ServletOutputStream responseOutputStream = response.getOutputStream()) {
+        try (ServletOutputStream responseOutputStream = response.getOutputStream())
+        {
             final HttpSession httpSession = request.getSession();
 
             //生产验证码字符串并保存到session中
@@ -60,7 +63,9 @@ public class KaptchaController {
             //定义response输出类型为image/jpeg类型，使用response输出流输出图片的byte数组
             responseOutputStream.write(captchaChallengeAsJpeg);
             responseOutputStream.flush();
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
 

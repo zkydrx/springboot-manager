@@ -20,7 +20,8 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SysRole extends PageReqVO implements Serializable {
+public class SysRole extends PageReqVO implements Serializable
+{
     @TableId
     private String id;
 

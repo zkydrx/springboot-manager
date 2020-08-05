@@ -12,12 +12,14 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020年3月18日
  */
 @Configuration
-public class MyBatisPlusConfig {
+public class MyBatisPlusConfig
+{
     /**
      * 配置mybatis-plus 分页查件
      */
     @Bean
-    public PaginationInterceptor paginationInterceptor() {
+    public PaginationInterceptor paginationInterceptor()
+    {
         return new PaginationInterceptor();
     }
 }

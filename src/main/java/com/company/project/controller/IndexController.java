@@ -19,91 +19,109 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Api(tags = "视图")
 @Controller
 @RequestMapping("/index")
-public class IndexController {
+public class IndexController
+{
 
     @GetMapping("/login")
-    public String logout() {
+    public String logout()
+    {
         Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated()) {
+        if (subject.isAuthenticated())
+        {
             return "redirect:/index/home" ;
         }
         return "login" ;
     }
 
     @GetMapping("/home")
-    public String home() {
+    public String home()
+    {
         return "home" ;
     }
 
     @GetMapping("/users/password")
-    public String updatePassword() {
+    public String updatePassword()
+    {
         return "users/update_password" ;
     }
 
     @GetMapping("/users/info")
-    public String userDetail(Model model) {
+    public String userDetail(Model model)
+    {
         model.addAttribute("flagType", "edit");
         return "users/user_edit" ;
     }
 
     @GetMapping("/menus")
-    public String menusList() {
+    public String menusList()
+    {
 
         return "menus/menu_list" ;
     }
 
     @GetMapping("/roles")
-    public String roleList() {
+    public String roleList()
+    {
         return "roles/role_list" ;
     }
 
     @GetMapping("/users")
-    public String userList() {
+    public String userList()
+    {
         return "users/user_list" ;
     }
 
     @GetMapping("/logs")
-    public String logList() {
+    public String logList()
+    {
         return "logs/log_list" ;
     }
 
     @GetMapping("/depts")
-    public String deptList() {
+    public String deptList()
+    {
         return "depts/dept_list" ;
     }
 
     @GetMapping("/403")
-    public String error403() {
+    public String error403()
+    {
         return "error/403" ;
     }
 
     @GetMapping("/404")
-    public String error404() {
+    public String error404()
+    {
         return "error/404" ;
     }
 
     @GetMapping("/500")
-    public String error405() {
+    public String error405()
+    {
         return "error/500" ;
     }
 
     @GetMapping("/main")
-    public String indexHome() {
+    public String indexHome()
+    {
         return "main" ;
     }
 
     @GetMapping("/about")
-    public String about() {
+    public String about()
+    {
         return "about" ;
     }
 
     @GetMapping("/build")
-    public String build() {
+    public String build()
+    {
         return "build" ;
     }
 
     @GetMapping("/systemInfo")
-    public String systemInfo(Model model) {
+    public String systemInfo(Model model)
+    {
 
         SystemHardwareInfo systemHardwareInfo = new SystemHardwareInfo();
         systemHardwareInfo.copyTo();
@@ -114,32 +132,38 @@ public class IndexController {
     }
 
     @GetMapping("/sysContent")
-    public String sysContent() {
+    public String sysContent()
+    {
         return "syscontent/list" ;
     }
 
     @GetMapping("/sysDict")
-    public String sysDict() {
+    public String sysDict()
+    {
         return "sysdict/list" ;
     }
 
     @GetMapping("/sysGenerator")
-    public String sysGenerator() {
+    public String sysGenerator()
+    {
         return "generator/list" ;
     }
 
     @GetMapping("/sysJob")
-    public String sysJob() {
-        return "sysjob/list";
+    public String sysJob()
+    {
+        return "sysjob/list" ;
     }
 
     @GetMapping("/sysJobLog")
-    public String sysJobLog() {
-        return "sysjoblog/list";
+    public String sysJobLog()
+    {
+        return "sysjoblog/list" ;
     }
 
     @GetMapping("/sysFiles")
-    public String sysFiles() {
-        return "sysfiles/list";
+    public String sysFiles()
+    {
+        return "sysfiles/list" ;
     }
 }

@@ -13,7 +13,8 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Data
-public class PermissionRespNode {
+public class PermissionRespNode
+{
     @ApiModelProperty(value = "id")
     private String id;
     @ApiModelProperty(value = "菜单权限名称")
@@ -43,7 +44,7 @@ public class PermissionRespNode {
     private Integer orderNum;
 
     @ApiModelProperty(value = "是否展开 默认不展开(false)")
-    private boolean spread=true;
+    private boolean spread = true;
 
     @ApiModelProperty(value = "是否选中 默认false")
     private boolean checked;

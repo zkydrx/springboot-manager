@@ -150,11 +150,12 @@ var buildBgColorHtml = function () {
     });
     return html;
 };
+
 /**
  * 配色方案配置项(默认选中第一个方案)
  * @param bgcolorId
  */
- function bgColorConfigFun(bgcolorId) {
+function bgColorConfigFun(bgcolorId) {
     var bgColorConfig = [
         {
             headerRight: '#1aa094',
@@ -286,43 +287,47 @@ var config = function (name) {
 
 
 //显示隐藏侧边栏
-var isShow=1;
-function iconHide(){
-    if(isShow===1)
+var isShow = 1;
+
+function iconHide() {
+    if (isShow === 1)
         hide();
     else
         show();
-    isShow*=-1;
+    isShow *= -1;
 }
-function hide(){
-    $('.layuimini-tool-left').animate({left:'50px'});
+
+function hide() {
+    $('.layuimini-tool-left').animate({left: '50px'});
 
     $('.layui-side cite').hide();
-    $('.layui-side').animate({width:'55px'});
+    $('.layui-side').animate({width: '55px'});
     $('.layui-logo').html("SM")
-    $('.layui-logo').animate({width:'55px'});
-    $('.layui-body').animate({left:'60px'});
-    document.getElementById('hide').className="layui-color layui-icon layui-icon-spread-left";
+    $('.layui-logo').animate({width: '55px'});
+    $('.layui-body').animate({left: '60px'});
+    document.getElementById('hide').className = "layui-color layui-icon layui-icon-spread-left";
     $(".layui-side li").removeClass("layui-nav-itemed");
 }
-function show(){
-    $('.layuimini-tool-left').animate({left:'200px'});
+
+function show() {
+    $('.layuimini-tool-left').animate({left: '200px'});
 
     $('.layui-side cite').show();
-    $('.layui-side').animate({width:'200px'});
-    $('.layui-body').animate({left:'200px'});
+    $('.layui-side').animate({width: '200px'});
+    $('.layui-body').animate({left: '200px'});
     $('.layui-logo').html("Springboot-Manager")
-    $('.layui-logo').animate({width:'200px'});
-    document.getElementById('hide').className="layui-color layui-icon layui-icon-shrink-right";
+    $('.layui-logo').animate({width: '200px'});
+    document.getElementById('hide').className = "layui-color layui-icon layui-icon-shrink-right";
     var id = $(".layui-tab-title li.layui-this").attr("lay-id");
     if (!CoreUtil.isEmpty(id)) {
-        $("a[data-id='"+id+"']").parents("li").addClass("layui-nav-itemed")
+        $("a[data-id='" + id + "']").parents("li").addClass("layui-nav-itemed")
     }
 }
-function ulHide(){
-    if(isShow===-1)
+
+function ulHide() {
+    if (isShow === -1)
         show();
-    isShow=1;
+    isShow = 1;
 }
 
 /**
@@ -333,31 +338,31 @@ $('body').on('click', '[data-page-close]', function () {
     var closeType = $(this).attr('data-page-close');
 
     if (closeType == 'all') {
-            if($(".layui-tab-title li").length > 1){
-                $(".layui-tab-title li").each(function(){
-                    if($(this).attr("lay-id") != ''){
-                        element.tabDelete("tab",$(this).attr("lay-id")).init();
-                    }
-                })
-            }else{
-                layer.msg("没有可以关闭的窗口了@_@");
-            }
+        if ($(".layui-tab-title li").length > 1) {
+            $(".layui-tab-title li").each(function () {
+                if ($(this).attr("lay-id") != '') {
+                    element.tabDelete("tab", $(this).attr("lay-id")).init();
+                }
+            })
+        } else {
+            layer.msg("没有可以关闭的窗口了@_@");
+        }
     } else {
-        if($(".layui-tab-title li").length > 1){
+        if ($(".layui-tab-title li").length > 1) {
 
             console.log($(".layui-tab-title li").length)
             console.log($(".layui-tab-title li.layui-this span").text())
-            if ($(".layui-tab-title li").length == 2 && $(".layui-tab-title li.layui-this span").text()!="主页"){
+            if ($(".layui-tab-title li").length == 2 && $(".layui-tab-title li.layui-this span").text() != "主页") {
                 layer.msg("没有可以关闭的窗口了@_@");
             } else {
-                $(".layui-tab-title li").each(function(){
-                    if($(this).attr("lay-id") != '' && !$(this).hasClass("layui-this")){
-                        element.tabDelete("tab",$(this).attr("lay-id")).init();
+                $(".layui-tab-title li").each(function () {
+                    if ($(this).attr("lay-id") != '' && !$(this).hasClass("layui-this")) {
+                        element.tabDelete("tab", $(this).attr("lay-id")).init();
                     }
                 })
             }
 
-        }else{
+        } else {
             layer.msg("没有可以关闭的窗口了@_@");
         }
     }

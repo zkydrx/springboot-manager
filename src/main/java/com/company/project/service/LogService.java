@@ -10,5 +10,6 @@ import com.company.project.entity.SysLog;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface LogService extends IService<SysLog> {
+public interface LogService extends IService<SysLog>
+{
 }

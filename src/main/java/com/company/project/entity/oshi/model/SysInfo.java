@@ -10,7 +10,8 @@ import lombok.Data;
  * @date 2020年3月18日
  */
 @Data
-public class SysInfo {
+public class SysInfo
+{
 
     /**
      * 服务器名称

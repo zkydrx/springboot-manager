@@ -11,6 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysDictDetailMapper extends BaseMapper<SysDictDetailEntity> {
+public interface SysDictDetailMapper extends BaseMapper<SysDictDetailEntity>
+{
 
 }

@@ -22,24 +22,29 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Service
-public class UserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements UserRoleService {
+public class UserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements UserRoleService
+{
     @Resource
     private SysUserRoleMapper sysUserRoleMapper;
 
     @Override
-    public List getRoleIdsByUserId(String userId) {
+    public List getRoleIdsByUserId(String userId)
+    {
         LambdaQueryWrapper<SysUserRole> queryWrapper = Wrappers.<SysUserRole>lambdaQuery().select(SysUserRole::getRoleId).eq(SysUserRole::getUserId, userId);
         return sysUserRoleMapper.selectObjs(queryWrapper);
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void addUserRoleInfo(UserRoleOperationReqVO vo) {
-        if (vo.getRoleIds() == null || vo.getRoleIds().isEmpty()) {
+    public void addUserRoleInfo(UserRoleOperationReqVO vo)
+    {
+        if (vo.getRoleIds() == null || vo.getRoleIds().isEmpty())
+        {
             return;
         }
         List<SysUserRole> list = new ArrayList<>();
-        for (String roleId : vo.getRoleIds()) {
+        for (String roleId : vo.getRoleIds())
+        {
             SysUserRole sysUserRole = new SysUserRole();
             sysUserRole.setUserId(vo.getUserId());
             sysUserRole.setRoleId(roleId);
@@ -51,7 +56,8 @@ public class UserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserR
     }
 
     @Override
-    public List getUserIdsByRoleId(String roleId) {
+    public List getUserIdsByRoleId(String roleId)
+    {
         return sysUserRoleMapper.selectObjs(Wrappers.<SysUserRole>lambdaQuery().select(SysUserRole::getUserId).eq(SysUserRole::getRoleId, roleId));
     }
 }

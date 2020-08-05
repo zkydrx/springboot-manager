@@ -12,7 +12,8 @@ import com.company.project.entity.SysDictDetailEntity;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysDictDetailService extends IService<SysDictDetailEntity> {
+public interface SysDictDetailService extends IService<SysDictDetailEntity>
+{
 
     IPage<SysDictDetailEntity> listByPage(Page<SysDictDetailEntity> page, String dictId);
 }

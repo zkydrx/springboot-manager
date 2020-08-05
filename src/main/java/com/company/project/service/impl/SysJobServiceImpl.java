@@ -25,30 +25,38 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Service("sysJobService")
-public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJobEntity> implements SysJobService {
+public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJobEntity> implements SysJobService
+{
     @Resource
     private Scheduler scheduler;
     @Resource
     private SysJobMapper sysJobMapper;
+
     /**
      * 项目启动时，初始化定时器
      */
     @PostConstruct
-    public void init(){
+    public void init()
+    {
         List<SysJobEntity> scheduleJobList = this.list();
-        for(SysJobEntity scheduleJob : scheduleJobList){
+        for (SysJobEntity scheduleJob : scheduleJobList)
+        {
             CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, scheduleJob.getId());
             //如果不存在，则创建
-            if(cronTrigger == null) {
+            if (cronTrigger == null)
+            {
                 ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
-            }else {
+            }
+            else
+            {
                 ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
             }
         }
     }
 
     @Override
-    public void saveJob(SysJobEntity sysJob) {
+    public void saveJob(SysJobEntity sysJob)
+    {
         sysJob.setStatus(Constant.ScheduleStatus.NORMAL.getValue());
         this.save(sysJob);
 
@@ -56,9 +64,11 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJobEntity> i
     }
 
     @Override
-    public void updateJobById(SysJobEntity sysJob) {
+    public void updateJobById(SysJobEntity sysJob)
+    {
         SysJobEntity sysJobEntity = this.getById(sysJob.getId());
-        if (sysJobEntity == null) {
+        if (sysJobEntity == null)
+        {
             throw new BusinessException("获取定时任务异常");
         }
         sysJob.setStatus(sysJobEntity.getStatus());
@@ -68,8 +78,10 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJobEntity> i
     }
 
     @Override
-    public void delete(List<String> ids) {
-        for(String jobId : ids){
+    public void delete(List<String> ids)
+    {
+        for (String jobId : ids)
+        {
             ScheduleUtils.deleteScheduleJob(scheduler, jobId);
         }
         sysJobMapper.deleteBatchIds(ids);
@@ -77,16 +89,20 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJobEntity> i
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void run(List<String> ids) {
-        for(String jobId : ids){
+    public void run(List<String> ids)
+    {
+        for (String jobId : ids)
+        {
             ScheduleUtils.run(scheduler, this.getById(jobId));
         }
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void pause(List<String> ids) {
-        for(String jobId : ids){
+    public void pause(List<String> ids)
+    {
+        for (String jobId : ids)
+        {
             ScheduleUtils.pauseJob(scheduler, jobId);
         }
 
@@ -95,8 +111,10 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJobEntity> i
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void resume(List<String> ids) {
-        for(String jobId : ids){
+    public void resume(List<String> ids)
+    {
+        for (String jobId : ids)
+        {
             ScheduleUtils.resumeJob(scheduler, jobId);
         }
 
@@ -104,7 +122,8 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJobEntity> i
     }
 
     @Override
-    public void updateBatch(List<String> ids, int status){
+    public void updateBatch(List<String> ids, int status)
+    {
         ids.parallelStream().forEach(id -> {
             SysJobEntity sysJobEntity = new SysJobEntity();
             sysJobEntity.setId(id);

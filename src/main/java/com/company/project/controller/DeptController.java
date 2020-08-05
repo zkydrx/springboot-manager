@@ -24,7 +24,8 @@ import javax.validation.Valid;
 @RequestMapping("/sys")
 @RestController
 @Api(tags = "组织模块-机构管理")
-public class DeptController {
+public class DeptController
+{
     @Resource
     private DeptService deptService;
 
@@ -32,7 +33,8 @@ public class DeptController {
     @ApiOperation(value = "新增组织接口")
     @LogAnnotation(title = "机构管理", action = "新增组织")
     @RequiresPermissions("sys:dept:add")
-    public DataResult addDept(@RequestBody @Valid SysDept vo) {
+    public DataResult addDept(@RequestBody @Valid SysDept vo)
+    {
         return DataResult.success(deptService.addDept(vo));
     }
 
@@ -40,7 +42,8 @@ public class DeptController {
     @ApiOperation(value = "删除组织接口")
     @LogAnnotation(title = "机构管理", action = "删除组织")
     @RequiresPermissions("sys:dept:deleted")
-    public DataResult deleted(@PathVariable("id") String id) {
+    public DataResult deleted(@PathVariable("id") String id)
+    {
         deptService.deleted(id);
         return DataResult.success();
     }
@@ -49,8 +52,10 @@ public class DeptController {
     @ApiOperation(value = "更新组织信息接口")
     @LogAnnotation(title = "机构管理", action = "更新组织信息")
     @RequiresPermissions("sys:dept:update")
-    public DataResult updateDept(@RequestBody SysDept vo) {
-        if (StringUtils.isEmpty(vo.getId())) {
+    public DataResult updateDept(@RequestBody SysDept vo)
+    {
+        if (StringUtils.isEmpty(vo.getId()))
+        {
             return DataResult.fail("id不能为空");
         }
         deptService.updateDept(vo);
@@ -61,15 +66,17 @@ public class DeptController {
     @ApiOperation(value = "查询组织详情接口")
     @LogAnnotation(title = "机构管理", action = "查询组织详情")
     @RequiresPermissions("sys:dept:detail")
-    public DataResult detailInfo(@PathVariable("id") String id) {
+    public DataResult detailInfo(@PathVariable("id") String id)
+    {
         return DataResult.success(deptService.getById(id));
     }
 
     @GetMapping("/dept/tree")
     @ApiOperation(value = "树型组织列表接口")
     @LogAnnotation(title = "机构管理", action = "树型组织列表")
-    @RequiresPermissions(value = {"sys:user:list","sys:user:update", "sys:user:add", "sys:dept:add", "sys:dept:update"}, logical = Logical.OR)
-    public DataResult getTree(@RequestParam(required = false) String deptId) {
+    @RequiresPermissions(value = {"sys:user:list", "sys:user:update", "sys:user:add", "sys:dept:add", "sys:dept:update"}, logical = Logical.OR)
+    public DataResult getTree(@RequestParam(required = false) String deptId)
+    {
         return DataResult.success(deptService.deptTreeList(deptId));
     }
 
@@ -77,7 +84,9 @@ public class DeptController {
     @ApiOperation(value = "获取机构列表接口")
     @LogAnnotation(title = "机构管理", action = "获取所有组织机构")
     @RequiresPermissions("sys:dept:list")
-    public DataResult getDeptAll() {
-        return DataResult.success(deptService.selectAll());    }
+    public DataResult getDeptAll()
+    {
+        return DataResult.success(deptService.selectAll());
+    }
 
 }

@@ -28,24 +28,31 @@ import java.util.*;
  */
 @EnableConfigurationProperties(FileUploadProperties.class)
 @Service("sysFilesService")
-public class SysFilesServiceImpl extends ServiceImpl<SysFilesMapper, SysFilesEntity> implements SysFilesService {
+public class SysFilesServiceImpl extends ServiceImpl<SysFilesMapper, SysFilesEntity> implements SysFilesService
+{
     @Resource
     private FileUploadProperties fileUploadProperties;
 
     @Override
-    public DataResult saveFile(MultipartFile file) {
+    public DataResult saveFile(MultipartFile file)
+    {
         //存储文件夹
         String createTime = DateUtils.format(new Date(), DateUtils.DATEPATTERN);
         String newPath = fileUploadProperties.getPath() + createTime + File.separator;
         File uploadDirectory = new File(newPath);
-        if (uploadDirectory.exists()) {
-            if (!uploadDirectory.isDirectory()) {
+        if (uploadDirectory.exists())
+        {
+            if (!uploadDirectory.isDirectory())
+            {
                 uploadDirectory.delete();
             }
-        } else {
+        }
+        else
+        {
             uploadDirectory.mkdir();
         }
-        try {
+        try
+        {
             String fileName = file.getOriginalFilename();
             //id与filename保持一直，删除文件
             String fileNameNew = UUID.randomUUID().toString().replace("-", "") + getFileType(fileName);
@@ -64,17 +71,21 @@ public class SysFilesServiceImpl extends ServiceImpl<SysFilesMapper, SysFilesEnt
             Map<String, String> resultMap = new HashMap<>();
             resultMap.put("src", url);
             return DataResult.success(resultMap);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             throw new BusinessException("上传文件失败");
         }
     }
 
     @Override
-    public void removeByIdsAndFiles(List<String> ids) {
+    public void removeByIdsAndFiles(List<String> ids)
+    {
         List<SysFilesEntity> list = this.listByIds(ids);
         list.forEach(entity -> {
             //如果之前的文件存在，删除
-            if (FileUtil.exist(entity.getFilePath())) {
+            if (FileUtil.exist(entity.getFilePath()))
+            {
                 FileUtil.del(entity.getFilePath());
             }
         });
@@ -88,10 +99,12 @@ public class SysFilesServiceImpl extends ServiceImpl<SysFilesMapper, SysFilesEnt
      * @param fileName 文件名
      * @return 后缀名
      */
-    private String getFileType(String fileName) {
-        if (fileName != null && fileName.contains(".")) {
+    private String getFileType(String fileName)
+    {
+        if (fileName != null && fileName.contains("."))
+        {
             return fileName.substring(fileName.lastIndexOf("."));
         }
-        return "";
+        return "" ;
     }
 }

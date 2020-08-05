@@ -10,7 +10,8 @@ import ${package}.entity.${className}Entity;
  * @email ${email}
  * @date ${datetime}
  */
-public interface ${className}Service extends IService<${className}Entity> {
+public interface ${className}Service extends IService<${className}Entity>
+{
 
 }
 

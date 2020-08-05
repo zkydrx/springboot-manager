@@ -11,12 +11,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
 import java.util.List;
+
 import com.company.project.common.utils.DataResult;
 
 import ${package}.entity.${className}Entity;
 import ${package}.service.${className}Service;
-
 
 
 /**
@@ -28,7 +29,8 @@ import ${package}.service.${className}Service;
  */
 @Controller
 @RequestMapping("/")
-public class ${className}Controller {
+public class ${className}Controller
+{
     @Autowired
     private ${className}Service ${classname}Service;
 
@@ -37,16 +39,18 @@ public class ${className}Controller {
     * 跳转到页面
     */
     @GetMapping("/index/${classname}")
-    public String ${classname}() {
-        return "${classNameLower}/list";
-        }
+    public String ${classname}()
+    {
+        return "${classNameLower}/list" ;
+    }
 
     @ApiOperation(value = "新增")
     @PostMapping("${classname}/add")
     @RequiresPermissions("${classname}:add")
     @ResponseBody
-    public DataResult add(@RequestBody ${className}Entity ${classname}){
-        ${classname}Service.save(${classname});
+    public DataResult add(@RequestBody ${className}Entity ${classname})
+    {
+            ${classname}Service.save(${classname});
         return DataResult.success();
     }
 
@@ -54,8 +58,9 @@ public class ${className}Controller {
     @DeleteMapping("${classname}/delete")
     @RequiresPermissions("${classname}:delete")
     @ResponseBody
-    public DataResult delete(@RequestBody @ApiParam(value = "id集合") List<String> ids){
-        ${classname}Service.removeByIds(ids);
+    public DataResult delete(@RequestBody @ApiParam(value = "id集合") List<String> ids)
+    {
+            ${classname}Service.removeByIds(ids);
         return DataResult.success();
     }
 
@@ -63,8 +68,9 @@ public class ${className}Controller {
     @PutMapping("${classname}/update")
     @RequiresPermissions("${classname}:update")
     @ResponseBody
-    public DataResult update(@RequestBody ${className}Entity ${classname}){
-        ${classname}Service.updateById(${classname});
+    public DataResult update(@RequestBody ${className}Entity ${classname})
+    {
+            ${classname}Service.updateById(${classname});
         return DataResult.success();
     }
 
@@ -72,7 +78,8 @@ public class ${className}Controller {
     @PostMapping("${classname}/listByPage")
     @RequiresPermissions("${classname}:list")
     @ResponseBody
-    public DataResult findListByPage(@RequestBody ${className}Entity ${classname}){
+    public DataResult findListByPage(@RequestBody ${className}Entity ${classname})
+    {
         Page page = new Page(${classname}.getPage(), ${classname}.getLimit());
         LambdaQueryWrapper<${className}Entity> queryWrapper = Wrappers.lambdaQuery();
         //查询条件示例

@@ -13,9 +13,11 @@ import java.net.InetAddress;
 @SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 @MapperScan("com.company.project.mapper")
 @Slf4j
-public class CompanyProjectApplication {
+public class CompanyProjectApplication
+{
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception
+    {
         ConfigurableApplicationContext application = SpringApplication.run(CompanyProjectApplication.class, args);
 
         Environment env = application.getEnvironment();

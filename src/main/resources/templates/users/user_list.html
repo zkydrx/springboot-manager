@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/css/custom.form.css">
     <style>
-        .custom-tree-item-clicked{color:#FC9003}
+        .custom-tree-item-clicked {
+            color: #FC9003
+        }
     </style>
 </head>
 <body>
@@ -76,7 +78,8 @@
                             <input type="text" id="username" class="layui-input" autocomplete="off" placeholder="请输入账号">
                         </div>
                         <div class="layui-input-inline">
-                            <input type="text" id="nickName" class="layui-input" autocomplete="off" placeholder="请输用户昵称">
+                            <input type="text" id="nickName" class="layui-input" autocomplete="off"
+                                   placeholder="请输用户昵称">
                         </div>
                         <div class="layui-input-inline">
                             <input type="text" readonly class="layui-input" id="createTime" placeholder="创建时间">
@@ -422,12 +425,13 @@
             });
         });
 
-        function initLeftTree(){
+        function initLeftTree() {
             CoreUtil.sendGet("/sys/dept/tree", null, function (res) {
                 loadLeftTree(res.data);
                 loadDeptTree(res.data);
             });
         }
+
         var initTransfer = function (data) {
             transfer.render({
                 elem: '#roles'

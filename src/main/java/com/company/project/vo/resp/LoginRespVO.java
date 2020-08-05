@@ -13,7 +13,8 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Data
-public class LoginRespVO {
+public class LoginRespVO
+{
     @ApiModelProperty(value = "token")
     private String accessToken;
     @ApiModelProperty(value = "刷新token")

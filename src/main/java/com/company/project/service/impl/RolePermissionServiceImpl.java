@@ -19,12 +19,15 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Service
-public class RolePermissionServiceImpl extends ServiceImpl<SysRolePermissionMapper, SysRolePermission> implements RolePermissionService {
+public class RolePermissionServiceImpl extends ServiceImpl<SysRolePermissionMapper, SysRolePermission> implements RolePermissionService
+{
     @Override
-    public void addRolePermission(RolePermissionOperationReqVO vo) {
+    public void addRolePermission(RolePermissionOperationReqVO vo)
+    {
 
         List<SysRolePermission> list = new ArrayList<>();
-        for (String permissionId : vo.getPermissionIds()) {
+        for (String permissionId : vo.getPermissionIds())
+        {
             SysRolePermission sysRolePermission = new SysRolePermission();
             sysRolePermission.setPermissionId(permissionId);
             sysRolePermission.setRoleId(vo.getRoleId());

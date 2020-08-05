@@ -13,7 +13,8 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Data
-public class DeptRespNodeVO {
+public class DeptRespNodeVO
+{
     @ApiModelProperty(value = "组织id")
     private String id;
 

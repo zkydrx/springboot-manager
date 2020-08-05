@@ -33,7 +33,8 @@ import javax.annotation.Resource;
 @Api(tags = "字典管理")
 @RestController
 @RequestMapping("/sysDict")
-public class SysDictController {
+public class SysDictController
+{
     @Resource
     private SysDictService sysDictService;
     @Resource
@@ -43,12 +44,15 @@ public class SysDictController {
     @ApiOperation(value = "新增")
     @PostMapping("/add")
     @RequiresPermissions("sysDict:add")
-    public DataResult add(@RequestBody SysDictEntity sysDict) {
-        if (StringUtils.isEmpty(sysDict.getName())) {
+    public DataResult add(@RequestBody SysDictEntity sysDict)
+    {
+        if (StringUtils.isEmpty(sysDict.getName()))
+        {
             return DataResult.fail("字典名称不能为空");
         }
         SysDictEntity q = sysDictService.getOne(Wrappers.<SysDictEntity>lambdaQuery().eq(SysDictEntity::getName, sysDict.getName()));
-        if (q != null) {
+        if (q != null)
+        {
             return DataResult.fail("字典名称已存在");
         }
         sysDictService.save(sysDict);
@@ -58,7 +62,8 @@ public class SysDictController {
     @ApiOperation(value = "删除")
     @DeleteMapping("/delete")
     @RequiresPermissions("sysDict:delete")
-    public DataResult delete(@RequestBody @ApiParam(value = "id集合") List<String> ids) {
+    public DataResult delete(@RequestBody @ApiParam(value = "id集合") List<String> ids)
+    {
         sysDictService.removeByIds(ids);
         //删除detail
         sysDictDetailService.remove(Wrappers.<SysDictDetailEntity>lambdaQuery().in(SysDictDetailEntity::getDictId, ids));
@@ -68,13 +73,16 @@ public class SysDictController {
     @ApiOperation(value = "更新")
     @PutMapping("/update")
     @RequiresPermissions("sysDict:update")
-    public DataResult update(@RequestBody SysDictEntity sysDict) {
-        if (StringUtils.isEmpty(sysDict.getName())) {
+    public DataResult update(@RequestBody SysDictEntity sysDict)
+    {
+        if (StringUtils.isEmpty(sysDict.getName()))
+        {
             return DataResult.fail("字典名称不能为空");
         }
 
         SysDictEntity q = sysDictService.getOne(Wrappers.<SysDictEntity>lambdaQuery().eq(SysDictEntity::getName, sysDict.getName()));
-        if (q != null && !q.getId().equals(sysDict.getId())) {
+        if (q != null && !q.getId().equals(sysDict.getId()))
+        {
             return DataResult.fail("字典名称已存在");
         }
 
@@ -85,11 +93,13 @@ public class SysDictController {
     @ApiOperation(value = "查询分页数据")
     @PostMapping("/listByPage")
     @RequiresPermissions("sysDict:list")
-    public DataResult findListByPage(@RequestBody SysDictEntity sysDict) {
+    public DataResult findListByPage(@RequestBody SysDictEntity sysDict)
+    {
         Page page = new Page(sysDict.getPage(), sysDict.getLimit());
         LambdaQueryWrapper<SysDictEntity> queryWrapper = Wrappers.lambdaQuery();
         //查询条件示例
-        if (!StringUtils.isEmpty(sysDict.getName())) {
+        if (!StringUtils.isEmpty(sysDict.getName()))
+        {
             queryWrapper.like(SysDictEntity::getName, sysDict.getName());
             queryWrapper.or();
             queryWrapper.like(SysDictEntity::getRemark, sysDict.getName());

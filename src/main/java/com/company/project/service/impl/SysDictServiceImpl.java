@@ -24,7 +24,8 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Service("sysDictService")
-public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDictEntity> implements SysDictService {
+public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDictEntity> implements SysDictService
+{
 
     @Resource
     private SysDictDetailMapper sysDictDetailMapper;
@@ -35,13 +36,16 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDictEntity
      * @param name 字典名称
      * @return 参数键值
      **/
-    public JSONArray getType(String name) {
-        if (StringUtils.isEmpty(name)) {
+    public JSONArray getType(String name)
+    {
+        if (StringUtils.isEmpty(name))
+        {
             return new JSONArray();
         }
         //根据名称获取字典
         SysDictEntity dict = this.getOne(Wrappers.<SysDictEntity>lambdaQuery().eq(SysDictEntity::getName, name));
-        if (dict == null || dict.getId() == null) {
+        if (dict == null || dict.getId() == null)
+        {
             return new JSONArray();
         }
         //获取明细

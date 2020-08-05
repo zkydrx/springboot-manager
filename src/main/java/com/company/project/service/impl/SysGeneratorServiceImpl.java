@@ -23,24 +23,29 @@ import java.util.zip.ZipOutputStream;
  */
 @Service
 @Slf4j
-public class SysGeneratorServiceImpl  implements ISysGeneratorService{
+public class SysGeneratorServiceImpl implements ISysGeneratorService
+{
     private final GeneratorMapper generatorMapper;
 
-    public SysGeneratorServiceImpl(GeneratorMapper generatorMapper) {
+    public SysGeneratorServiceImpl(GeneratorMapper generatorMapper)
+    {
         this.generatorMapper = generatorMapper;
     }
 
     @Override
-    public IPage<SysGenerator> selectAllTables(Page<SysGenerator> page, SysGenerator vo) {
+    public IPage<SysGenerator> selectAllTables(Page<SysGenerator> page, SysGenerator vo)
+    {
         return generatorMapper.selectAllTables(page, vo);
     }
 
     @Override
-    public byte[] generatorCode(String[] tableNames) {
+    public byte[] generatorCode(String[] tableNames)
+    {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
 
-        for(String tableName : tableNames){
+        for (String tableName : tableNames)
+        {
             //查询表信息
             Map<String, String> table = queryTable(tableName);
             //查询列信息
@@ -52,14 +57,15 @@ public class SysGeneratorServiceImpl  implements ISysGeneratorService{
         return outputStream.toByteArray();
     }
 
-    public Map<String, String> queryTable(String tableName) {
+    public Map<String, String> queryTable(String tableName)
+    {
         return generatorMapper.queryTable(tableName);
     }
 
-    public List<Map<String, String>> queryColumns(String tableName) {
+    public List<Map<String, String>> queryColumns(String tableName)
+    {
         return generatorMapper.queryColumns(tableName);
     }
-
 
 
 }

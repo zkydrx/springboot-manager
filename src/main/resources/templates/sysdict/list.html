@@ -37,10 +37,10 @@
 </div>
 
 
-<div class="panel panel-default operation" id="dictAddDetail" hidden >
+<div class="panel panel-default operation" id="dictAddDetail" hidden>
     <div class="panel-heading title"></div>
     <div class="layui-card-body">
-        <form class="layui-form " action="" lay-filter="info" >
+        <form class="layui-form " action="" lay-filter="info">
             <input id="detailId" name="id" hidden/>
             <input name="dictId" hidden/>
             <div class="layui-form-item">
@@ -80,8 +80,10 @@
                 <div id="searchParam" shiro:hasPermission="sysDict:list">
                     <div class="layui-form-item">
                         <div class="layui-input-inline">
-                            <input type="text" id="name" class="layui-input" autocomplete="off" placeholder="请输入字典名称或描述 ">
-                            <input type="text" id="dictId" style="display: none" class="layui-input" autocomplete="off" placeholder="请输入字典名称或描述 ">
+                            <input type="text" id="name" class="layui-input" autocomplete="off"
+                                   placeholder="请输入字典名称或描述 ">
+                            <input type="text" id="dictId" style="display: none" class="layui-input" autocomplete="off"
+                                   placeholder="请输入字典名称或描述 ">
                         </div>
 
                         <div class="layui-input-inline ">
@@ -162,8 +164,8 @@
             , cols: [
                 [
                     {type: 'checkbox', fixed: 'left'},
-                    {field: 'name', title: '字典名称', sort: true,event: 'setDetail'},
-                    {field: 'remark', title: '描述', sort: true,event: 'setDetail'},
+                    {field: 'name', title: '字典名称', sort: true, event: 'setDetail'},
+                    {field: 'remark', title: '描述', sort: true, event: 'setDetail'},
                     {width: 120, toolbar: "#tool", title: '操作'}
                 ]
             ]
@@ -248,7 +250,7 @@
                     var ids = [];
                     ids.push(data.id);
                     var containCurrentIdFlag = (data.id === selectDictId);
-                    tipDialog(ids,containCurrentIdFlag);
+                    tipDialog(ids, containCurrentIdFlag);
                     break;
                 case 'edit':
                     $("#id").val(data.id);
@@ -358,7 +360,7 @@
 
 
         //删除
-        var tipDialog = function (ids,containCurrentIdFlag) {
+        var tipDialog = function (ids, containCurrentIdFlag) {
             layer.open({
                 content: "确定要删除么?",
                 yes: function (index, layero) {
@@ -457,5 +459,5 @@
             }
         });
     };
-    
+
 </script>

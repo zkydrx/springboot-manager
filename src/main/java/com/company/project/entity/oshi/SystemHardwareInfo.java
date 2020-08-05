@@ -27,7 +27,8 @@ import java.util.Properties;
  * @date 2020年3月18日
  */
 @Data
-public class SystemHardwareInfo {
+public class SystemHardwareInfo
+{
 
     private static final int OSHI_WAIT_SECOND = 1000;
 
@@ -56,7 +57,8 @@ public class SystemHardwareInfo {
      */
     private List<SysFileInfo> sysFiles = new LinkedList<>();
 
-    public void copyTo() {
+    public void copyTo()
+    {
         SystemInfo si = new SystemInfo();
         HardwareAbstractionLayer hal = si.getHardware();
 
@@ -74,7 +76,8 @@ public class SystemHardwareInfo {
     /**
      * 设置CPU信息
      */
-    private void setCpuInfo(CentralProcessor processor) {
+    private void setCpuInfo(CentralProcessor processor)
+    {
         // CPU信息
         long[] prevTicks = processor.getSystemCpuLoadTicks();
         Util.sleep(OSHI_WAIT_SECOND);
@@ -99,7 +102,8 @@ public class SystemHardwareInfo {
     /**
      * 设置内存信息
      */
-    private void setMemInfo(GlobalMemory memory) {
+    private void setMemInfo(GlobalMemory memory)
+    {
         mem.setTotal(memory.getTotal());
         mem.setUsed(memory.getTotal() - memory.getAvailable());
         mem.setFree(memory.getAvailable());
@@ -108,7 +112,8 @@ public class SystemHardwareInfo {
     /**
      * 设置服务器信息
      */
-    private void setSysInfo() {
+    private void setSysInfo()
+    {
         Properties props = System.getProperties();
         sys.setComputerName(IPUtils.getHostName());
         sys.setComputerIp(NetUtil.getLocalhostStr());
@@ -120,7 +125,8 @@ public class SystemHardwareInfo {
     /**
      * 设置Java虚拟机
      */
-    private void setJvmInfo() {
+    private void setJvmInfo()
+    {
         Properties props = System.getProperties();
         jvm.setTotal(Runtime.getRuntime().totalMemory());
         jvm.setMax(Runtime.getRuntime().maxMemory());
@@ -132,10 +138,12 @@ public class SystemHardwareInfo {
     /**
      * 设置磁盘信息
      */
-    private void setSysFiles(OperatingSystem os) {
+    private void setSysFiles(OperatingSystem os)
+    {
         FileSystem fileSystem = os.getFileSystem();
         OSFileStore[] fsArray = fileSystem.getFileStores();
-        for (OSFileStore fs : fsArray) {
+        for (OSFileStore fs : fsArray)
+        {
             long free = fs.getUsableSpace();
             long total = fs.getTotalSpace();
             long used = total - free;
@@ -147,9 +155,12 @@ public class SystemHardwareInfo {
             sysFile.setFree(convertFileSize(free));
             sysFile.setUsed(convertFileSize(used));
 
-            if (total == 0) {
+            if (total == 0)
+            {
                 sysFile.setUsage(0);
-            } else {
+            }
+            else
+            {
                 sysFile.setUsage(NumberUtil.mul(NumberUtil.div(used, total, 4), 100));
             }
 
@@ -163,19 +174,27 @@ public class SystemHardwareInfo {
      * @param size 字节大小
      * @return 转换后值
      */
-    public String convertFileSize(long size) {
+    public String convertFileSize(long size)
+    {
         long kb = 1024;
         long mb = kb * 1024;
         long gb = mb * 1024;
-        if (size >= gb) {
+        if (size >= gb)
+        {
             return String.format("%.1f GB", (float) size / gb);
-        } else if (size >= mb) {
+        }
+        else if (size >= mb)
+        {
             float f = (float) size / mb;
             return String.format(f > 100 ? "%.0f MB" : "%.1f MB", f);
-        } else if (size >= kb) {
+        }
+        else if (size >= kb)
+        {
             float f = (float) size / kb;
             return String.format(f > 100 ? "%.0f KB" : "%.1f KB", f);
-        } else {
+        }
+        else
+        {
             return String.format("%d B", size);
         }
     }

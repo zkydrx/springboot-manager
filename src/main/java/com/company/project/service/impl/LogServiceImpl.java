@@ -14,5 +14,6 @@ import org.springframework.stereotype.Service;
  * @date 2020年3月18日
  */
 @Service
-public class LogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements LogService {
+public class LogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements LogService
+{
 }

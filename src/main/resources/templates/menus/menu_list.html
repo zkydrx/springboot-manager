@@ -116,7 +116,7 @@
     }).extend({
         treetable: 'treetable-lay/treetable',
         iconPicker: 'js/iconPicker'
-    }).use(['treetable', 'table', 'tree',"iconPicker"], function () {
+    }).use(['treetable', 'table', 'tree', "iconPicker"], function () {
         var reloadTreeTable = function () {
             CoreUtil.sendGet("/sys/permissions", null, function (res) {
                 renderTable(res.data);
@@ -145,12 +145,14 @@
                         {type: 'numbers'},
                         {field: 'name', width: 150, title: '菜单名称'},
                         {field: 'url', width: 150, title: 'url'},
-                        {field: 'icon', width: 80, title: '图标',templet:function (item) {
-                            return '<i class="icon-color layui-icon '+item.icon+'"></i>';
-                            }},
+                        {
+                            field: 'icon', width: 80, title: '图标', templet: function (item) {
+                                return '<i class="icon-color layui-icon ' + item.icon + '"></i>';
+                            }
+                        },
                         {field: 'target', width: 80, title: 'target'},
                         {
-                            field: 'type',width: 70, title: '类型', templet: function (item) {
+                            field: 'type', width: 70, title: '类型', templet: function (item) {
                                 if (item.type === 1) {
                                     return '  <a class="layui-btn layui-btn-xs" >目录</a>';
                                 }
@@ -163,11 +165,11 @@
                             }
                         },
                         {field: 'pidName', title: '父级名称'},
-                        {field: 'orderNum', title: '排序',width: 70},
-                        {field: 'perms', title: '资源标识',width: 150},
+                        {field: 'orderNum', title: '排序', width: 70},
+                        {field: 'perms', title: '资源标识', width: 150},
                         {field: 'createTime', title: '创建时间', Width: 150},
                         {
-                            field: 'status', title: '状态',width: 100, templet: function (item) {
+                            field: 'status', title: '状态', width: 100, templet: function (item) {
                                 if (item.status === 1) {
                                     return '  <input type="checkbox" lay-skin="switch" lay-text="启用|禁用" checked disabled>';
                                 }
@@ -197,17 +199,17 @@
                     $(".menu_icon").show();
                     form.val('deptInfo', {
                         "id": ""
-                        ,"pid": ""
-                        ,"name": ""
-                        ,"pidName": ""
-                        ,"url": ""
-                        ,"perms": ""
-                        ,"orderNum": ""
-                        ,"target": "_self"
+                        , "pid": ""
+                        , "name": ""
+                        , "pidName": ""
+                        , "url": ""
+                        , "perms": ""
+                        , "orderNum": ""
+                        , "target": "_self"
                     });
-                    $("input[name='icon']").attr("value","")
+                    $("input[name='icon']").attr("value", "")
                     iconPicker.checkIcon('iconPicker', '');
-                    if ($("#reset_icon").length === 0){
+                    if ($("#reset_icon").length === 0) {
                         $(".layui-select-title").append("<a id='reset_icon' onclick='resetIcon()' class=\"layui-btn  layui-btn-danger layui-btn-sm\">重置</a>")
                     }
                     $(".operation_menu input[name=status]").attr('checked', 'checked');
@@ -254,23 +256,23 @@
                     initRadio(data.type);
                     form.val('deptInfo', {
                         "target": data.target
-                        ,"id": data.id
-                        ,"pid": data.pid
-                        ,"name": data.name
-                        ,"pidName": data.pidName
-                        ,"url": data.url
-                        ,"perms": data.perms
-                        ,"orderNum": data.orderNum
+                        , "id": data.id
+                        , "pid": data.pid
+                        , "name": data.name
+                        , "pidName": data.pidName
+                        , "url": data.url
+                        , "perms": data.perms
+                        , "orderNum": data.orderNum
                     });
                     if (!CoreUtil.isEmpty(data.icon)) {
                         iconPicker.checkIcon('iconPicker', data.icon);
                     } else {
                         iconPicker.checkIcon('iconPicker', "");
                     }
-                    if ($("#reset_icon").length === 0){
+                    if ($("#reset_icon").length === 0) {
                         $(".layui-select-title").append("<a id='reset_icon' onclick='resetIcon()' class=\"layui-btn  layui-btn-danger layui-btn-sm\">重置</a>")
                     }
-                    $("input[name='icon']").attr("value",data.icon)
+                    $("input[name='icon']").attr("value", data.icon)
                     if (data.status == 1) {
                         $(".operation_menu input[name=status]").attr('checked', 'checked');
                         $(".operation_menu input[name=status]").attr('type', 'hidden').val(1);
@@ -385,12 +387,12 @@
                 $(".menu_target").hide();
                 $(".menu_url").hide();
                 $(".menu_icon").show();
-            } else if(data.value == '2'){
+            } else if (data.value == '2') {
                 $(".menu-perms").hide();
                 $(".menu_target").show();
                 $(".menu_url").show();
                 $(".menu_icon").show();
-            } else{
+            } else {
                 $(".menu-perms").show();
                 $(".menu_target").hide();
                 $(".menu_url").show();
@@ -410,9 +412,9 @@
         return value;
     }
 
-    function resetIcon(){
+    function resetIcon() {
         iconPicker.checkIcon('iconPicker', '');
-        $("input[name='icon']").attr("value","")
+        $("input[name='icon']").attr("value", "")
     }
 
 </script>

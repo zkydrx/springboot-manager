@@ -16,7 +16,8 @@ import java.util.Date;
  * @date 2020年3月18日
  */
 @Setter
-public class JvmInfo {
+public class JvmInfo
+{
     /**
      * 当前JVM占用的内存总数(M)
      */
@@ -42,45 +43,54 @@ public class JvmInfo {
      */
     private String home;
 
-    public double getTotal() {
+    public double getTotal()
+    {
         return NumberUtil.div(total, (1024 * 1024), 2);
     }
 
-    public double getMax() {
+    public double getMax()
+    {
         return NumberUtil.div(max, (1024 * 1024), 2);
     }
 
-    public double getFree() {
+    public double getFree()
+    {
         return NumberUtil.div(free, (1024 * 1024), 2);
     }
 
-    public double getUsed() {
+    public double getUsed()
+    {
         return NumberUtil.div(total - free, (1024 * 1024), 2);
     }
 
-    public String getVersion() {
+    public String getVersion()
+    {
         return version;
     }
 
-    public String getHome() {
+    public String getHome()
+    {
         return home;
     }
 
-    public double getUsage() {
+    public double getUsage()
+    {
         return NumberUtil.mul(NumberUtil.div(total - free, total, 4), 100);
     }
 
     /**
      * 获取JDK名称
      */
-    public String getName() {
+    public String getName()
+    {
         return ManagementFactory.getRuntimeMXBean().getVmName();
     }
 
     /**
      * JDK启动时间
      */
-    public String getStartTime() {
+    public String getStartTime()
+    {
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
         Date date = new Date(time);
         return DateUtil.formatDateTime(date);
@@ -89,7 +99,8 @@ public class JvmInfo {
     /**
      * JDK运行时间
      */
-    public String getRunTime() {
+    public String getRunTime()
+    {
 
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
         Date date = new Date(time);
@@ -105,6 +116,6 @@ public class JvmInfo {
         long hour = runMS % nd / nh;
         long min = runMS % nd % nh / nm;
 
-        return day + "天" + hour + "小时" + min + "分钟";
+        return day + "天" + hour + "小时" + min + "分钟" ;
     }
 }

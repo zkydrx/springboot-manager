@@ -28,13 +28,14 @@ import java.util.*;
  */
 @Service
 @Slf4j
-public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements PermissionService {
+public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements PermissionService
+{
     @Resource
     private UserRoleService userRoleService;
     @Resource
     private RolePermissionService rolePermissionService;
     @Resource
-    private  SysPermissionMapper sysPermissionMapper;
+    private SysPermissionMapper sysPermissionMapper;
     @Resource
     private HttpSessionService httpSessionService;
 
@@ -45,13 +46,17 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
      * 也可以多表关联查询
      */
     @Override
-    public List<SysPermission> getPermission(String userId) {
+    public List<SysPermission> getPermission(String userId)
+    {
         List<String> roleIds = userRoleService.getRoleIdsByUserId(userId);
-        if (roleIds.isEmpty()) {
+        if (roleIds.isEmpty())
+        {
             return null;
         }
-        List<Object> permissionIds = rolePermissionService.listObjs(Wrappers.<SysRolePermission>lambdaQuery().select(SysRolePermission::getPermissionId).in(SysRolePermission::getRoleId, roleIds));
-        if (permissionIds.isEmpty()) {
+        List<Object> permissionIds = rolePermissionService.listObjs(Wrappers.<SysRolePermission>lambdaQuery().select(SysRolePermission::getPermissionId)
+                                                                                                             .in(SysRolePermission::getRoleId, roleIds));
+        if (permissionIds.isEmpty())
+        {
             return null;
         }
 
@@ -66,15 +71,18 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void deleted(String permissionId) {
+    public void deleted(String permissionId)
+    {
         SysPermission sysPermission = sysPermissionMapper.selectById(permissionId);
-        if (null == sysPermission) {
+        if (null == sysPermission)
+        {
             log.error("传入 的 id:{}不合法", permissionId);
             throw new BusinessException(BaseResponseCode.DATA_ERROR);
         }
         //获取下一级
         List<SysPermission> childs = sysPermissionMapper.selectList(Wrappers.<SysPermission>lambdaQuery().eq(SysPermission::getPid, permissionId));
-        if (!childs.isEmpty()) {
+        if (!childs.isEmpty())
+        {
             throw new BusinessException(BaseResponseCode.ROLE_PERMISSION_RELATION);
         }
         sysPermissionMapper.deleteById(permissionId);
@@ -89,12 +97,16 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
      * 获取所有菜单权限
      */
     @Override
-    public List<SysPermission> selectAll() {
+    public List<SysPermission> selectAll()
+    {
         List<SysPermission> result = sysPermissionMapper.selectList(Wrappers.<SysPermission>lambdaQuery().orderByAsc(SysPermission::getOrderNum));
-        if (!result.isEmpty()) {
-            for (SysPermission sysPermission : result) {
+        if (!result.isEmpty())
+        {
+            for (SysPermission sysPermission : result)
+            {
                 SysPermission parent = sysPermissionMapper.selectById(sysPermission.getPid());
-                if (parent != null) {
+                if (parent != null)
+                {
                     sysPermission.setPidName(parent.getName());
                 }
             }
@@ -106,15 +118,19 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
      * 获取权限标识
      */
     @Override
-    public Set<String> getPermissionsByUserId(String userId) {
+    public Set<String> getPermissionsByUserId(String userId)
+    {
 
         List<SysPermission> list = getPermission(userId);
         Set<String> permissions = new HashSet<>();
-        if (null == list || list.isEmpty()) {
+        if (null == list || list.isEmpty())
+        {
             return null;
         }
-        for (SysPermission sysPermission : list) {
-            if (!StringUtils.isEmpty(sysPermission.getPerms())) {
+        for (SysPermission sysPermission : list)
+        {
+            if (!StringUtils.isEmpty(sysPermission.getPerms()))
+            {
                 permissions.add(sysPermission.getPerms());
             }
 
@@ -126,7 +142,8 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
      * 以树型的形式把用户拥有的菜单权限返回给客户端
      */
     @Override
-    public List<PermissionRespNode> permissionTreeList(String userId) {
+    public List<PermissionRespNode> permissionTreeList(String userId)
+    {
         List<SysPermission> list = getPermission(userId);
         return getTree(list, true);
     }
@@ -134,21 +151,28 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
     /**
      * 递归获取菜单树
      */
-    private List<PermissionRespNode> getTree(List<SysPermission> all, boolean type) {
+    private List<PermissionRespNode> getTree(List<SysPermission> all, boolean type)
+    {
 
         List<PermissionRespNode> list = new ArrayList<>();
-        if (all == null || all.isEmpty()) {
+        if (all == null || all.isEmpty())
+        {
             return list;
         }
-        for (SysPermission sysPermission : all) {
-            if ("0".equals(sysPermission.getPid())) {
+        for (SysPermission sysPermission : all)
+        {
+            if ("0".equals(sysPermission.getPid()))
+            {
                 PermissionRespNode permissionRespNode = new PermissionRespNode();
                 BeanUtils.copyProperties(sysPermission, permissionRespNode);
                 permissionRespNode.setTitle(sysPermission.getName());
 
-                if (type) {
+                if (type)
+                {
                     permissionRespNode.setChildren(getChildExcBtn(sysPermission.getId(), all));
-                } else {
+                }
+                else
+                {
                     permissionRespNode.setChildren(getChildAll(sysPermission.getId(), all));
                 }
                 list.add(permissionRespNode);
@@ -160,11 +184,14 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
     /**
      * 递归遍历所有
      */
-    private List<PermissionRespNode> getChildAll(String id, List<SysPermission> all) {
+    private List<PermissionRespNode> getChildAll(String id, List<SysPermission> all)
+    {
 
         List<PermissionRespNode> list = new ArrayList<>();
-        for (SysPermission sysPermission : all) {
-            if (sysPermission.getPid().equals(id)) {
+        for (SysPermission sysPermission : all)
+        {
+            if (sysPermission.getPid().equals(id))
+            {
                 PermissionRespNode permissionRespNode = new PermissionRespNode();
                 BeanUtils.copyProperties(sysPermission, permissionRespNode);
                 permissionRespNode.setTitle(sysPermission.getName());
@@ -178,11 +205,14 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
     /**
      * 只递归获取目录和菜单
      */
-    private List<PermissionRespNode> getChildExcBtn(String id, List<SysPermission> all) {
+    private List<PermissionRespNode> getChildExcBtn(String id, List<SysPermission> all)
+    {
 
         List<PermissionRespNode> list = new ArrayList<>();
-        for (SysPermission sysPermission : all) {
-            if (sysPermission.getPid().equals(id) && sysPermission.getType() != 3) {
+        for (SysPermission sysPermission : all)
+        {
+            if (sysPermission.getPid().equals(id) && sysPermission.getType() != 3)
+            {
                 PermissionRespNode permissionRespNode = new PermissionRespNode();
                 BeanUtils.copyProperties(sysPermission, permissionRespNode);
                 permissionRespNode.setTitle(sysPermission.getName());
@@ -197,7 +227,8 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
      * 获取所有菜单权限按钮
      */
     @Override
-    public List<PermissionRespNode> selectAllByTree() {
+    public List<PermissionRespNode> selectAllByTree()
+    {
 
         List<SysPermission> list = selectAll();
         return getTree(list, false);
@@ -212,12 +243,16 @@ public class PermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysP
      * 选择自己和它的子类
      */
     @Override
-    public List<PermissionRespNode> selectAllMenuByTree(String permissionId) {
+    public List<PermissionRespNode> selectAllMenuByTree(String permissionId)
+    {
 
         List<SysPermission> list = selectAll();
-        if (!list.isEmpty() && !StringUtils.isEmpty(permissionId)) {
-            for (SysPermission sysPermission : list) {
-                if (sysPermission.getId().equals(permissionId)) {
+        if (!list.isEmpty() && !StringUtils.isEmpty(permissionId))
+        {
+            for (SysPermission sysPermission : list)
+            {
+                if (sysPermission.getId().equals(permissionId))
+                {
                     list.remove(sysPermission);
                     break;
                 }

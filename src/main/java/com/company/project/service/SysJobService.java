@@ -12,7 +12,8 @@ import java.util.List;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysJobService extends IService<SysJobEntity> {
+public interface SysJobService extends IService<SysJobEntity>
+{
 
     void saveJob(SysJobEntity sysJob);
 

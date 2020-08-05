@@ -14,7 +14,8 @@ import java.util.Set;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface PermissionService extends IService<SysPermission> {
+public interface PermissionService extends IService<SysPermission>
+{
 
     List<SysPermission> getPermission(String userId);
 

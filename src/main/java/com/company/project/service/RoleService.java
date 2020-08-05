@@ -12,7 +12,8 @@ import java.util.List;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface RoleService  extends IService<SysRole> {
+public interface RoleService extends IService<SysRole>
+{
 
     SysRole addRole(SysRole vo);
 

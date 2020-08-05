@@ -22,7 +22,8 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/sys")
 @Api(tags = "首页数据")
-public class HomeController {
+public class HomeController
+{
     @Resource
     private HomeService homeService;
     @Resource
@@ -30,7 +31,8 @@ public class HomeController {
 
     @GetMapping("/home")
     @ApiOperation(value = "获取首页数据接口")
-    public DataResult getHomeInfo() {
+    public DataResult getHomeInfo()
+    {
         //通过access_token拿userId
         String userId = httpSessionService.getCurrentUserId();
         DataResult result = DataResult.success();

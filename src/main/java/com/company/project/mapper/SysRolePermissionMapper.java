@@ -10,6 +10,7 @@ import com.company.project.entity.SysRolePermission;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysRolePermissionMapper extends BaseMapper<SysRolePermission> {
+public interface SysRolePermissionMapper extends BaseMapper<SysRolePermission>
+{
 
 }

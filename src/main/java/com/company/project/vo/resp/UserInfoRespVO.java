@@ -11,7 +11,8 @@ import lombok.Data;
  * @date 2020年3月18日
  */
 @Data
-public class UserInfoRespVO {
+public class UserInfoRespVO
+{
     @ApiModelProperty(value = "用户id")
     private String id;
     @ApiModelProperty(value = "账号")

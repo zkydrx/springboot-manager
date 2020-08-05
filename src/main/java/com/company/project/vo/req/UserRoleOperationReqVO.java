@@ -15,7 +15,8 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Data
-public class UserRoleOperationReqVO {
+public class UserRoleOperationReqVO
+{
     @ApiModelProperty(value = "用户id")
     @NotBlank(message = "用户id不能为空")
     private String userId;

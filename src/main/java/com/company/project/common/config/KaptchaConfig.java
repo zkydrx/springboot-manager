@@ -15,10 +15,12 @@ import java.util.Properties;
  * @date 2020年3月18日
  */
 @Configuration
-public class KaptchaConfig {
+public class KaptchaConfig
+{
 
-    @Bean(name="captchaProducer")
-    public DefaultKaptcha getDefaultKaptcha(){
+    @Bean(name = "captchaProducer")
+    public DefaultKaptcha getDefaultKaptcha()
+    {
         com.google.code.kaptcha.impl.DefaultKaptcha defaultKaptcha = new com.google.code.kaptcha.impl.DefaultKaptcha();
         Properties properties = new Properties();
         // 图片边框

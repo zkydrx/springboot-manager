@@ -10,7 +10,8 @@ import lombok.Data;
  * @date 2020年3月18日
  */
 @Data
-public class SysFileInfo {
+public class SysFileInfo
+{
 
     /**
      * 盘符路径

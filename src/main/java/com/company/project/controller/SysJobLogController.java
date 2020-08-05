@@ -28,18 +28,21 @@ import javax.annotation.Resource;
 @Api(tags = "定时任务日志")
 @RestController
 @RequestMapping("/sysJobLog")
-public class SysJobLogController {
+public class SysJobLogController
+{
     @Resource
     private SysJobLogService sysJobLogService;
 
     @ApiOperation(value = "查询分页数据")
     @PostMapping("/listByPage")
     @RequiresPermissions("sysJob:list")
-    public DataResult findListByPage(@RequestBody SysJobLogEntity sysJobLog){
+    public DataResult findListByPage(@RequestBody SysJobLogEntity sysJobLog)
+    {
         Page page = new Page(sysJobLog.getPage(), sysJobLog.getLimit());
         LambdaQueryWrapper<SysJobLogEntity> queryWrapper = Wrappers.lambdaQuery();
         //查询条件示例
-        if (!StringUtils.isEmpty(sysJobLog.getJobId())) {
+        if (!StringUtils.isEmpty(sysJobLog.getJobId()))
+        {
             queryWrapper.like(SysJobLogEntity::getJobId, sysJobLog.getJobId());
         }
         queryWrapper.orderByDesc(SysJobLogEntity::getCreateTime);
@@ -51,7 +54,8 @@ public class SysJobLogController {
     @DeleteMapping("/delete")
     @RequiresPermissions("sysJob:delete")
     @LogAnnotation(title = "清空")
-    public DataResult delete() {
+    public DataResult delete()
+    {
         sysJobLogService.remove(Wrappers.emptyWrapper());
         return DataResult.success();
     }

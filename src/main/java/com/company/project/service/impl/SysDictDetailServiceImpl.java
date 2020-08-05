@@ -25,7 +25,8 @@ import javax.annotation.Resource;
  * @date 2020年3月18日
  */
 @Service("sysDictDetailService")
-public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, SysDictDetailEntity> implements SysDictDetailService {
+public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, SysDictDetailEntity> implements SysDictDetailService
+{
     @Resource
     private SysDictDetailMapper sysDictDetailMapper;
     @Resource
@@ -33,10 +34,12 @@ public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, S
 
 
     @Override
-    public IPage<SysDictDetailEntity> listByPage(Page<SysDictDetailEntity> page, String dictId) {
+    public IPage<SysDictDetailEntity> listByPage(Page<SysDictDetailEntity> page, String dictId)
+    {
 
         SysDictEntity sysDictEntity = sysDictMapper.selectById(dictId);
-        if (sysDictEntity == null) {
+        if (sysDictEntity == null)
+        {
             throw new BusinessException("获取字典数据失败!");
         }
 
@@ -44,7 +47,8 @@ public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, S
         wrapper.eq(SysDictDetailEntity::getDictId, dictId);
         wrapper.orderByAsc(SysDictDetailEntity::getSort);
         IPage<SysDictDetailEntity> result = sysDictDetailMapper.selectPage(page, wrapper);
-        if (!CollectionUtils.isEmpty(result.getRecords())) {
+        if (!CollectionUtils.isEmpty(result.getRecords()))
+        {
             result.getRecords().parallelStream().forEach(entity -> entity.setDictName(sysDictEntity.getName()));
         }
         return result;

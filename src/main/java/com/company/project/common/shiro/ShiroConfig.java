@@ -24,18 +24,21 @@ import java.util.Map;
  */
 @Configuration
 @EnableConfigurationProperties(FileUploadProperties.class)
-public class ShiroConfig {
+public class ShiroConfig
+{
 
     @Resource
     private FileUploadProperties fileUploadProperties;
 
     @Bean(name = "shiroDialect")
-    public ShiroDialect shiroDialect(){
+    public ShiroDialect shiroDialect()
+    {
         return new ShiroDialect();
     }
 
     @Bean
-    public CustomHashedCredentialsMatcher customHashedCredentialsMatcher(){
+    public CustomHashedCredentialsMatcher customHashedCredentialsMatcher()
+    {
         return new CustomHashedCredentialsMatcher();
     }
 
@@ -43,14 +46,16 @@ public class ShiroConfig {
      * 创建realm
      */
     @Bean
-    public CustomRealm customRealm() {
+    public CustomRealm customRealm()
+    {
         CustomRealm customRealm = new CustomRealm();
         customRealm.setCredentialsMatcher(customHashedCredentialsMatcher());
         return customRealm;
     }
 
     @Bean
-    public SecurityManager securityManager() {
+    public SecurityManager securityManager()
+    {
 
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //关联realm
@@ -59,9 +64,9 @@ public class ShiroConfig {
     }
 
 
-
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager)
+    {
 
         //整个shiro执行过程： 过滤器、认证、授权
 
@@ -111,7 +116,8 @@ public class ShiroConfig {
      * @return org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager)
+    {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;

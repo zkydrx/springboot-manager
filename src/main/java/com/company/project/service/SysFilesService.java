@@ -14,7 +14,8 @@ import java.util.List;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysFilesService extends IService<SysFilesEntity> {
+public interface SysFilesService extends IService<SysFilesEntity>
+{
 
     DataResult saveFile(MultipartFile file);
 

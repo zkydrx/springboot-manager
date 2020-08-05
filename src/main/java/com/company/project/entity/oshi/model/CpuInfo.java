@@ -11,7 +11,8 @@ import lombok.Setter;
  * @date 2020年3月18日
  */
 @Setter
-public class CpuInfo {
+public class CpuInfo
+{
 
     /**
      * 核心数
@@ -43,27 +44,33 @@ public class CpuInfo {
      */
     private double free;
 
-    public int getCpuNum() {
+    public int getCpuNum()
+    {
         return cpuNum;
     }
 
-    public double getTotal() {
+    public double getTotal()
+    {
         return NumberUtil.round(NumberUtil.mul(total, 100), 2).doubleValue();
     }
 
-    public double getSys() {
+    public double getSys()
+    {
         return NumberUtil.round(NumberUtil.mul(sys / total, 100), 2).doubleValue();
     }
 
-    public double getUsed() {
+    public double getUsed()
+    {
         return NumberUtil.round(NumberUtil.mul(used / total, 100), 2).doubleValue();
     }
 
-    public double getWait() {
+    public double getWait()
+    {
         return NumberUtil.round(NumberUtil.mul(wait / total, 100), 2).doubleValue();
     }
 
-    public double getFree() {
+    public double getFree()
+    {
         return NumberUtil.round(NumberUtil.mul(free / total, 100), 2).doubleValue();
     }
 

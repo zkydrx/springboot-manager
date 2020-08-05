@@ -11,7 +11,8 @@ import lombok.Data;
  * @date 2020年3月18日
  */
 @Data
-public class UpdatePasswordReqVO {
+public class UpdatePasswordReqVO
+{
     @ApiModelProperty(value = "旧密码")
     private String oldPwd;
     @ApiModelProperty(value = "新密码")

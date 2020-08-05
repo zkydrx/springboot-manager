@@ -13,7 +13,8 @@ import java.util.List;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface DeptService extends IService<SysDept> {
+public interface DeptService extends IService<SysDept>
+{
 
     SysDept addDept(SysDept vo);
 

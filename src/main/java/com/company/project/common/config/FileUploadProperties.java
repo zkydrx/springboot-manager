@@ -13,37 +13,44 @@ import org.springframework.util.StringUtils;
  */
 @Component
 @ConfigurationProperties(prefix = "file")
-public class FileUploadProperties {
+public class FileUploadProperties
+{
 
     private String path;
     private String url;
     private String accessUrl;
 
 
-    public String getPath() {
+    public String getPath()
+    {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(String path)
+    {
         this.path = path;
     }
 
-    public String getUrl() {
+    public String getUrl()
+    {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(String url)
+    {
         this.url = url;
 
         //set accessUrl
-        if (StringUtils.isEmpty(url)) {
+        if (StringUtils.isEmpty(url))
+        {
             this.accessUrl = null;
         }
-        this.accessUrl = url.substring(url.lastIndexOf("/")) + "/**";
-        System.out.println("accessUrl="+accessUrl);
+        this.accessUrl = url.substring(url.lastIndexOf("/")) + "/**" ;
+        System.out.println("accessUrl=" + accessUrl);
     }
 
-    public String getAccessUrl() {
+    public String getAccessUrl()
+    {
         return accessUrl;
     }
 

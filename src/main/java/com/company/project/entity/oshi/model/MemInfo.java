@@ -11,7 +11,8 @@ import lombok.Setter;
  * @date 2020年3月18日
  */
 @Setter
-public class MemInfo {
+public class MemInfo
+{
     /**
      * 内存总量
      */
@@ -27,20 +28,24 @@ public class MemInfo {
      */
     private double free;
 
-    public double getTotal() {
+    public double getTotal()
+    {
         return NumberUtil.div(total, (1024 * 1024 * 1024), 2);
     }
 
-    public double getUsed() {
+    public double getUsed()
+    {
         return NumberUtil.div(used, (1024 * 1024 * 1024), 2);
     }
 
 
-    public double getFree() {
+    public double getFree()
+    {
         return NumberUtil.div(free, (1024 * 1024 * 1024), 2);
     }
 
-    public double getUsage() {
+    public double getUsage()
+    {
         return NumberUtil.mul(NumberUtil.div(used, total, 4), 100);
     }
 }

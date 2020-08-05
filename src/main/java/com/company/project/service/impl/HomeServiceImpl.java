@@ -23,7 +23,8 @@ import java.util.List;
  * @date 2020年3月18日
  */
 @Service
-public class HomeServiceImpl implements HomeService {
+public class HomeServiceImpl implements HomeService
+{
     @Resource
     private UserService userService;
     @Resource
@@ -32,16 +33,19 @@ public class HomeServiceImpl implements HomeService {
     private PermissionService permissionService;
 
     @Override
-    public HomeRespVO getHomeInfo(String userId) {
+    public HomeRespVO getHomeInfo(String userId)
+    {
 
 
         SysUser sysUser = userService.getById(userId);
         UserInfoRespVO vo = new UserInfoRespVO();
 
-        if (sysUser != null) {
+        if (sysUser != null)
+        {
             BeanUtils.copyProperties(sysUser, vo);
             SysDept sysDept = deptService.getById(sysUser.getDeptId());
-            if (sysDept != null) {
+            if (sysDept != null)
+            {
                 vo.setDeptId(sysDept.getId());
                 vo.setDeptName(sysDept.getName());
             }

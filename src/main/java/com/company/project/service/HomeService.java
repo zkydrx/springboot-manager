@@ -9,7 +9,8 @@ import com.company.project.vo.resp.HomeRespVO;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface HomeService {
+public interface HomeService
+{
 
     HomeRespVO getHomeInfo(String userId);
 }

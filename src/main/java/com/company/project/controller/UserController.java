@@ -37,7 +37,8 @@ import java.util.List;
 @Api(tags = "组织模块-用户管理")
 @RequestMapping("/sys")
 @Slf4j
-public class UserController {
+public class UserController
+{
     @Resource
     private UserService userService;
     @Resource
@@ -47,7 +48,8 @@ public class UserController {
 
     @PostMapping(value = "/user/login")
     @ApiOperation(value = "用户登录接口")
-    public DataResult login(@RequestBody @Valid LoginReqVO vo, HttpServletRequest request) {
+    public DataResult login(@RequestBody @Valid LoginReqVO vo, HttpServletRequest request)
+    {
         //校验图像验证码
         validImageCode(vo.getCaptcha(), request);
         return DataResult.success(userService.login(vo));
@@ -55,7 +57,8 @@ public class UserController {
 
     @PostMapping("/user/register")
     @ApiOperation(value = "用户注册接口")
-    public DataResult register(@RequestBody @Valid RegisterReqVO vo) {
+    public DataResult register(@RequestBody @Valid RegisterReqVO vo)
+    {
         DataResult result = DataResult.success();
         result.setData(userService.register(vo));
         return result;
@@ -63,7 +66,8 @@ public class UserController {
 
     @GetMapping("/user/unLogin")
     @ApiOperation(value = "引导客户端去登录")
-    public DataResult unLogin() {
+    public DataResult unLogin()
+    {
         return DataResult.getResult(BaseResponseCode.TOKEN_ERROR);
     }
 
@@ -71,8 +75,10 @@ public class UserController {
     @ApiOperation(value = "更新用户信息接口")
     @LogAnnotation(title = "用户管理", action = "更新用户信息")
     @RequiresPermissions("sys:user:update")
-    public DataResult updateUserInfo(@RequestBody SysUser vo) {
-        if (StringUtils.isEmpty(vo.getId())) {
+    public DataResult updateUserInfo(@RequestBody SysUser vo)
+    {
+        if (StringUtils.isEmpty(vo.getId()))
+        {
             return DataResult.fail("id不能为空");
         }
         String userId = httpSessionService.getCurrentUserId();
@@ -83,7 +89,8 @@ public class UserController {
     @PutMapping("/user/info")
     @ApiOperation(value = "更新用户信息接口")
     @LogAnnotation(title = "用户管理", action = "更新用户信息")
-    public DataResult updateUserInfoById(@RequestBody SysUser vo) {
+    public DataResult updateUserInfoById(@RequestBody SysUser vo)
+    {
         String userId = httpSessionService.getCurrentUserId();
         vo.setId(userId);
         userService.updateUserInfoMy(vo, userId);
@@ -94,14 +101,16 @@ public class UserController {
     @ApiOperation(value = "查询用户详情接口")
     @LogAnnotation(title = "用户管理", action = "查询用户详情")
     @RequiresPermissions("sys:user:detail")
-    public DataResult detailInfo(@PathVariable("id") String id) {
+    public DataResult detailInfo(@PathVariable("id") String id)
+    {
         return DataResult.success(userService.getById(id));
     }
 
     @GetMapping("/user")
     @ApiOperation(value = "查询用户详情接口")
     @LogAnnotation(title = "用户管理", action = "查询用户详情")
-    public DataResult youSelfInfo() {
+    public DataResult youSelfInfo()
+    {
         String userId = httpSessionService.getCurrentUserId();
         return DataResult.success(userService.getById(userId));
     }
@@ -110,7 +119,8 @@ public class UserController {
     @ApiOperation(value = "分页获取用户列表接口")
     @RequiresPermissions("sys:user:list")
     @LogAnnotation(title = "用户管理", action = "分页获取用户列表")
-    public DataResult pageInfo(@RequestBody SysUser vo) {
+    public DataResult pageInfo(@RequestBody SysUser vo)
+    {
         return DataResult.success(userService.pageInfo(vo));
     }
 
@@ -118,7 +128,8 @@ public class UserController {
     @ApiOperation(value = "新增用户接口")
     @RequiresPermissions("sys:user:add")
     @LogAnnotation(title = "用户管理", action = "新增用户")
-    public DataResult addUser(@RequestBody @Valid SysUser vo) {
+    public DataResult addUser(@RequestBody @Valid SysUser vo)
+    {
         userService.addUser(vo);
         return DataResult.success();
     }
@@ -126,7 +137,8 @@ public class UserController {
     @GetMapping("/user/logout")
     @ApiOperation(value = "退出接口")
     @LogAnnotation(title = "用户管理", action = "退出")
-    public DataResult logout() {
+    public DataResult logout()
+    {
         userService.logout();
         return DataResult.success();
     }
@@ -134,7 +146,8 @@ public class UserController {
     @PutMapping("/user/pwd")
     @ApiOperation(value = "修改密码接口")
     @LogAnnotation(title = "用户管理", action = "更新密码")
-    public DataResult updatePwd(@RequestBody UpdatePasswordReqVO vo) {
+    public DataResult updatePwd(@RequestBody UpdatePasswordReqVO vo)
+    {
         String userId = httpSessionService.getCurrentUserId();
         userService.updatePwd(vo, userId);
         return DataResult.success();
@@ -144,7 +157,8 @@ public class UserController {
     @ApiOperation(value = "删除用户接口")
     @LogAnnotation(title = "用户管理", action = "删除用户")
     @RequiresPermissions("sys:user:deleted")
-    public DataResult deletedUser(@RequestBody @ApiParam(value = "用户id集合") List<String> userIds) {
+    public DataResult deletedUser(@RequestBody @ApiParam(value = "用户id集合") List<String> userIds)
+    {
         //删除用户， 删除redis的绑定的角色跟权限
         httpSessionService.abortUserByUserIds(userIds);
         LambdaQueryWrapper<SysUser> queryWrapper = Wrappers.lambdaQuery();
@@ -157,7 +171,8 @@ public class UserController {
     @ApiOperation(value = "赋予角色-获取所有角色接口")
     @LogAnnotation(title = "用户管理", action = "赋予角色-获取所有角色接口")
     @RequiresPermissions("sys:user:role:detail")
-    public DataResult getUserOwnRole(@PathVariable("userId") String userId) {
+    public DataResult getUserOwnRole(@PathVariable("userId") String userId)
+    {
         DataResult result = DataResult.success();
         result.setData(userService.getUserOwnRole(userId));
         return result;
@@ -167,30 +182,34 @@ public class UserController {
     @ApiOperation(value = "赋予角色-用户赋予角色接口")
     @LogAnnotation(title = "用户管理", action = "赋予角色-用户赋予角色接口")
     @RequiresPermissions("sys:user:update:role")
-    public DataResult setUserOwnRole(@PathVariable("userId") String userId, @RequestBody List<String> roleIds) {
+    public DataResult setUserOwnRole(@PathVariable("userId") String userId, @RequestBody List<String> roleIds)
+    {
 
         LambdaQueryWrapper<SysUserRole> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SysUserRole::getUserId, userId);
         userRoleService.remove(queryWrapper);
-        if (null != roleIds && !roleIds.isEmpty()) {
+        if (null != roleIds && !roleIds.isEmpty())
+        {
             UserRoleOperationReqVO reqVO = new UserRoleOperationReqVO();
             reqVO.setUserId(userId);
             reqVO.setRoleIds(roleIds);
             userRoleService.addUserRoleInfo(reqVO);
         }
         httpSessionService.refreshUerId(userId);
-        return  DataResult.success();
+        return DataResult.success();
     }
 
     /**
      * 校验图像验证码
+     *
      * @param imageCode 验证码
-     * @param request request
+     * @param request   request
      */
-    private void validImageCode(String imageCode, HttpServletRequest request) {
-        String captchaId = (String)
-                request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        if (!captchaId.equals(imageCode)) {
+    private void validImageCode(String imageCode, HttpServletRequest request)
+    {
+        String captchaId = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+        if (!captchaId.equals(imageCode))
+        {
             throw new BusinessException("验证码输入有误");
         }
     }

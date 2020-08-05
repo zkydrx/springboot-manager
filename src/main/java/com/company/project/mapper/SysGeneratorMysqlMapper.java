@@ -7,5 +7,6 @@ package com.company.project.mapper;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysGeneratorMysqlMapper extends GeneratorMapper {
+public interface SysGeneratorMysqlMapper extends GeneratorMapper
+{
 }

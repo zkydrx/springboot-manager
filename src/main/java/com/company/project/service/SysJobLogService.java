@@ -10,7 +10,8 @@ import com.company.project.entity.SysJobLogEntity;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysJobLogService extends IService<SysJobLogEntity> {
+public interface SysJobLogService extends IService<SysJobLogEntity>
+{
 
 }
 

@@ -11,7 +11,8 @@ import com.company.project.entity.SysGenerator;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface ISysGeneratorService {
+public interface ISysGeneratorService
+{
 
 
     IPage<SysGenerator> selectAllTables(Page<SysGenerator> page, SysGenerator vo);

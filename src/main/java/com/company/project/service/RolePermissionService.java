@@ -11,7 +11,8 @@ import com.company.project.vo.req.RolePermissionOperationReqVO;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface RolePermissionService extends IService<SysRolePermission> {
+public interface RolePermissionService extends IService<SysRolePermission>
+{
 
     void addRolePermission(RolePermissionOperationReqVO vo);
 }

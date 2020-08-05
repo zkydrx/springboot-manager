@@ -10,7 +10,8 @@ import com.company.project.entity.SysDictEntity;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysDictService extends IService<SysDictEntity> {
+public interface SysDictService extends IService<SysDictEntity>
+{
 
 }
 

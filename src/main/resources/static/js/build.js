@@ -11,7 +11,7 @@ layui.use(['element', 'laydate', 'form'], function () {
     });
 
     // 禁止选择网页文本
-    $(document).on('selectstart', '.layui-card', function(){
+    $(document).on('selectstart', '.layui-card', function () {
         return false;
     });
 
@@ -21,44 +21,48 @@ layui.use(['element', 'laydate', 'form'], function () {
     $(document).on("mousedown", ".layui-form-item", function (e) {
         $this = $(this);
         timer = setTimeout(function () {
-            downPosi = {'left': e.clientX - $this.offset().left,
-                'top': e.clientY - $this.offset().top + 10};
-            areaPosi = {'ltX': build.offset().left, 'ltY': build.offset().top,
+            downPosi = {
+                'left': e.clientX - $this.offset().left,
+                'top': e.clientY - $this.offset().top + 10
+            };
+            areaPosi = {
+                'ltX': build.offset().left, 'ltY': build.offset().top,
                 'rbX': build.offset().left + build.width(),
-                'rbY': build.offset().top + build.height()};
+                'rbY': build.offset().top + build.height()
+            };
             target = $this;
         }, 200);
     });
     $(document).on("mousemove", function (e) {
-        if(dragDom == null && target != null){
+        if (dragDom == null && target != null) {
             dragDom = $("<div class='layui-form timo-compile element-panel'></div>");
             dragDom.append(target.clone());
             dragDom.addClass("drag-box");
             dragDom.css("width", target.width());
             $("body").append(dragDom);
             var buildItem = target.parent('.build-item');
-            if(buildItem.length > 0){
+            if (buildItem.length > 0) {
                 buildItem.remove();
             }
         }
-        if(dragDom != null){
+        if (dragDom != null) {
             dragDom.css("left", e.clientX - downPosi.left);
             dragDom.css("top", e.clientY - downPosi.top);
         }
-        if(dragDom != null){
-            if(e.clientX > areaPosi.ltX && e.clientY > areaPosi.ltY
-                && e.clientX < areaPosi.rbX && e.clientY < areaPosi.rbY){
+        if (dragDom != null) {
+            if (e.clientX > areaPosi.ltX && e.clientY > areaPosi.ltY
+                && e.clientX < areaPosi.rbX && e.clientY < areaPosi.rbY) {
                 build.addClass("active");
                 buildItemPosi(e.clientY);
-            }else{
+            } else {
                 build.removeClass("active");
                 shellItem.remove();
             }
         }
     });
     $(document).on("mouseup", function (e) {
-        if(dragDom != null){
-            if(build.hasClass("active")){
+        if (dragDom != null) {
+            if (build.hasClass("active")) {
                 buildAdd(dragDom);
             }
             dragDom.remove();
@@ -67,7 +71,7 @@ layui.use(['element', 'laydate', 'form'], function () {
             build.removeClass("active");
             shellItem.remove();
         }
-        if(timer != null){
+        if (timer != null) {
             clearTimeout(timer);
             timer = null;
         }
@@ -75,27 +79,27 @@ layui.use(['element', 'laydate', 'form'], function () {
 
     // 构建项位置
     var shellItem = $("<div id='shell-item'></div>");
-    var buildItemPosi = function(clientY){
-        build.children('.build-item').each(function(key, val){
+    var buildItemPosi = function (clientY) {
+        build.children('.build-item').each(function (key, val) {
             var $this = $(val);
             var ty = $this.offset().top;
             var by = $this.offset().top + $this.height();
-            if(clientY > ty &&  clientY < by ){
-                if(clientY < (ty + by) / 2){
+            if (clientY > ty && clientY < by) {
+                if (clientY < (ty + by) / 2) {
                     $this.before(shellItem);
-                }else{
+                } else {
                     $this.after(shellItem);
                 }
             }
         });
         shellItem.css('height', dragDom.height());
-        if($('#shell-item').length == 0){
+        if ($('#shell-item').length == 0) {
             build.append(shellItem);
         }
     };
 
     // 加入构建面板
-    var buildAdd = function(dragDom){
+    var buildAdd = function (dragDom) {
         var elem = dragDom.children(".layui-form-item").clone();
         elem.children('div').children('div').remove();
         elem.removeAttr('style');
@@ -111,7 +115,7 @@ layui.use(['element', 'laydate', 'form'], function () {
 
     // 编辑构建项
     var buildItem, index;
-    build.on('click', '.edit', function(){
+    build.on('click', '.edit', function () {
         buildItem = $(this).parents('.build-item');
         var elem = buildItem.children('.layui-form-item').clone();
         elem.children('div').children('div').remove();
@@ -132,7 +136,7 @@ layui.use(['element', 'laydate', 'form'], function () {
     });
 
     // 更新HTML
-    $(document).on('click', '.build-edit-btn', function(){
+    $(document).on('click', '.build-edit-btn', function () {
         var val = $(this).parent().children('textarea').val();
         buildItem.children('.layui-form-item').remove();
         buildItem.append($(val));
@@ -141,12 +145,12 @@ layui.use(['element', 'laydate', 'form'], function () {
     });
 
     // 删除构建项
-    build.on('click', '.remove', function(){
+    build.on('click', '.remove', function () {
         $(this).parents('.build-item').remove();
     });
 
     // 生成代码
-    $(document).on('click', '.build-generate', function(){
+    $(document).on('click', '.build-generate', function () {
         var genHtml = '';
         build.find(".layui-form-item").each(function (key, val) {
             var item = $(val).clone();

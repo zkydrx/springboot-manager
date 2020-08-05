@@ -16,7 +16,8 @@ import java.util.List;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface UserService extends IService<SysUser> {
+public interface UserService extends IService<SysUser>
+{
 
     String register(RegisterReqVO vo);
 
@@ -30,7 +31,7 @@ public interface UserService extends IService<SysUser> {
 
     void logout();
 
-    void updatePwd(UpdatePasswordReqVO vo,String userId);
+    void updatePwd(UpdatePasswordReqVO vo, String userId);
 
     List<SysUser> getUserListByDeptIds(List<Object> deptIds);
 

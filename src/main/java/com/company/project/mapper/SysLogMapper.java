@@ -10,5 +10,6 @@ import com.company.project.entity.SysLog;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysLogMapper extends BaseMapper<SysLog> {
+public interface SysLogMapper extends BaseMapper<SysLog>
+{
 }

@@ -16,7 +16,8 @@ import java.util.Map;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface GeneratorMapper extends BaseMapper<SysGenerator> {
+public interface GeneratorMapper extends BaseMapper<SysGenerator>
+{
 
     IPage<SysGenerator> selectAllTables(Page<SysGenerator> page, @Param(value = "vo") SysGenerator vo);
 

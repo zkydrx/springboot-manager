@@ -18,7 +18,8 @@ import org.springframework.context.annotation.Lazy;
  * @version V1.0
  * @date 2020年3月18日
  */
-public class CustomHashedCredentialsMatcher extends SimpleCredentialsMatcher {
+public class CustomHashedCredentialsMatcher extends SimpleCredentialsMatcher
+{
 
     @Lazy
     @Autowired
@@ -27,9 +28,11 @@ public class CustomHashedCredentialsMatcher extends SimpleCredentialsMatcher {
     private String userTokenPrefix;
 
     @Override
-    public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
+    public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info)
+    {
         String accessToken = (String) token.getPrincipal();
-        if (!redisDb.exists(userTokenPrefix + accessToken)) {
+        if (!redisDb.exists(userTokenPrefix + accessToken))
+        {
             SecurityUtils.getSubject().logout();
             throw new BusinessException(BaseResponseCode.TOKEN_ERROR);
         }

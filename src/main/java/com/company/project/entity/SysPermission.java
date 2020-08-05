@@ -16,7 +16,8 @@ import java.util.Date;
  * @date 2020年3月18日
  */
 @Data
-public class SysPermission implements Serializable {
+public class SysPermission implements Serializable
+{
 
 
     @TableId
@@ -55,5 +56,5 @@ public class SysPermission implements Serializable {
 
     @TableField(exist = false)
     private String pidName;
-    
+
 }

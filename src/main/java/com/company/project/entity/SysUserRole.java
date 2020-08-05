@@ -16,7 +16,8 @@ import java.util.Date;
  * @date 2020年3月18日
  */
 @Data
-public class SysUserRole implements Serializable {
+public class SysUserRole implements Serializable
+{
     @TableId
     private String id;
 

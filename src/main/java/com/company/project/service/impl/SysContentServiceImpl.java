@@ -15,7 +15,8 @@ import com.company.project.service.SysContentService;
  * @date 2020年3月18日
  */
 @Service("sysContentService")
-public class SysContentServiceImpl extends ServiceImpl<SysContentMapper, SysContentEntity> implements SysContentService {
+public class SysContentServiceImpl extends ServiceImpl<SysContentMapper, SysContentEntity> implements SysContentService
+{
 
 
 }

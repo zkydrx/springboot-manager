@@ -9,7 +9,9 @@ import ${package}.service.${className}Service;
 
 
 @Service("${classname}Service")
-public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}Entity> implements ${className}Service {
+public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}Entity>
+        implements ${className}Service
+{
 
 
 }

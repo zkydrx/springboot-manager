@@ -13,21 +13,26 @@ import org.springframework.stereotype.Component;
  * @date 2020年3月18日
  */
 @Component
-public class SpringContextUtils implements ApplicationContextAware {
-	public static ApplicationContext applicationContext;
+public class SpringContextUtils implements ApplicationContextAware
+{
+    public static ApplicationContext applicationContext;
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext)
-			throws BeansException {
-		SpringContextUtils.applicationContext = applicationContext;
-	}
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException
+    {
+        SpringContextUtils.applicationContext = applicationContext;
+    }
 
-	public static Object getBean(String name) {
-		try {
-			return applicationContext.getBean(name);
-		} catch (Exception e) {
-			return null;
-		}
-	}
+    public static Object getBean(String name)
+    {
+        try
+        {
+            return applicationContext.getBean(name);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
 
 }

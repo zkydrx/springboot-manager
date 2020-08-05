@@ -13,7 +13,8 @@ import javax.validation.constraints.NotBlank;
  * @date 2020年3月18日
  */
 @Data
-public class LoginReqVO {
+public class LoginReqVO
+{
     @ApiModelProperty(value = "账号")
     @NotBlank(message = "账号不能为空")
     private String username;

@@ -26,7 +26,8 @@ import java.util.List;
 @RequestMapping("/sys")
 @Api(tags = "系统模块-系统操作日志管理")
 @RestController
-public class SysLogController {
+public class SysLogController
+{
     @Resource
     private LogService logService;
 
@@ -34,19 +35,24 @@ public class SysLogController {
     @ApiOperation(value = "分页查询系统操作日志接口")
     @LogAnnotation(title = "系统操作日志管理", action = "分页查询系统操作日志")
     @RequiresPermissions("sys:log:list")
-    public DataResult pageInfo(@RequestBody SysLog vo) {
+    public DataResult pageInfo(@RequestBody SysLog vo)
+    {
         Page page = new Page(vo.getPage(), vo.getLimit());
         LambdaQueryWrapper<SysLog> queryWrapper = Wrappers.lambdaQuery();
-        if (!StringUtils.isEmpty(vo.getUsername()) ) {
+        if (!StringUtils.isEmpty(vo.getUsername()))
+        {
             queryWrapper.like(SysLog::getUsername, vo.getUsername());
         }
-        if (!StringUtils.isEmpty(vo.getOperation()) ) {
+        if (!StringUtils.isEmpty(vo.getOperation()))
+        {
             queryWrapper.like(SysLog::getOperation, vo.getOperation());
         }
-        if (!StringUtils.isEmpty(vo.getStartTime()) ) {
+        if (!StringUtils.isEmpty(vo.getStartTime()))
+        {
             queryWrapper.gt(SysLog::getCreateTime, vo.getStartTime());
         }
-        if (!StringUtils.isEmpty(vo.getEndTime()) ) {
+        if (!StringUtils.isEmpty(vo.getEndTime()))
+        {
             queryWrapper.lt(SysLog::getCreateTime, vo.getEndTime());
         }
         queryWrapper.orderByDesc(SysLog::getCreateTime);
@@ -57,7 +63,8 @@ public class SysLogController {
     @ApiOperation(value = "删除日志接口")
     @LogAnnotation(title = "系统操作日志管理", action = "删除系统操作日志")
     @RequiresPermissions("sys:log:deleted")
-    public DataResult deleted(@RequestBody List<String> logIds) {
+    public DataResult deleted(@RequestBody List<String> logIds)
+    {
         logService.removeByIds(logIds);
         return DataResult.success();
     }

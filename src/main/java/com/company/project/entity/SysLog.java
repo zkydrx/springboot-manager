@@ -19,7 +19,8 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class SysLog extends PageReqVO implements Serializable {
+public class SysLog extends PageReqVO implements Serializable
+{
     @TableId
     private String id;
 

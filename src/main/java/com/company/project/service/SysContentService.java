@@ -10,7 +10,8 @@ import com.company.project.entity.SysContentEntity;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface SysContentService extends IService<SysContentEntity> {
+public interface SysContentService extends IService<SysContentEntity>
+{
 
 }
 

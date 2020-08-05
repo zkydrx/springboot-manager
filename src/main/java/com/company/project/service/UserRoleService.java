@@ -13,7 +13,8 @@ import java.util.List;
  * @version V1.0
  * @date 2020年3月18日
  */
-public interface UserRoleService  extends IService<SysUserRole> {
+public interface UserRoleService extends IService<SysUserRole>
+{
 
     List<String> getRoleIdsByUserId(String userId);
 

@@ -31,18 +31,22 @@ import java.nio.charset.StandardCharsets;
  * @date 2020年3月18日
  */
 @Slf4j
-public class CustomAccessControlFilter extends AccessControlFilter {
+public class CustomAccessControlFilter extends AccessControlFilter
+{
 
 
     @Override
-    protected boolean isAccessAllowed(ServletRequest servletRequest, ServletResponse servletResponse, Object o) {
+    protected boolean isAccessAllowed(ServletRequest servletRequest, ServletResponse servletResponse, Object o)
+    {
         return false;
     }
 
     @Override
-    protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws IOException, ServletException {
+    protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse servletResponse) throws IOException, ServletException
+    {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        try {
+        try
+        {
             Subject subject = getSubject(servletRequest, servletResponse);
             System.out.println(subject.isAuthenticated() + "");
             System.out.println(HttpContextUtils.isAjaxRequest(request));
@@ -51,46 +55,73 @@ public class CustomAccessControlFilter extends AccessControlFilter {
             //从header中获取token
             String token = request.getHeader(Constant.ACCESS_TOKEN);
             //如果header中不存在token，则从参数中获取token
-            if (StringUtils.isEmpty(token)) {
+            if (StringUtils.isEmpty(token))
+            {
                 token = request.getParameter(Constant.ACCESS_TOKEN);
             }
-            if (StringUtils.isEmpty(token)) {
+            if (StringUtils.isEmpty(token))
+            {
                 throw new BusinessException(BaseResponseCode.TOKEN_ERROR);
             }
             UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(token, token);
             getSubject(servletRequest, servletResponse).login(usernamePasswordToken);
-        } catch (BusinessException exception) {
-            if (HttpContextUtils.isAjaxRequest(request)) {
+        }
+        catch (BusinessException exception)
+        {
+            if (HttpContextUtils.isAjaxRequest(request))
+            {
                 customResponse(exception.getMessageCode(), exception.getDetailMessage(), servletResponse);
-            } else if (exception.getMessageCode() == BaseResponseCode.TOKEN_ERROR.getCode()) {
+            }
+            else if (exception.getMessageCode() == BaseResponseCode.TOKEN_ERROR.getCode())
+            {
                 servletRequest.getRequestDispatcher("/index/login").forward(servletRequest, servletResponse);
-            } else if (exception.getMessageCode() == BaseResponseCode.UNAUTHORIZED_ERROR.getCode()) {
+            }
+            else if (exception.getMessageCode() == BaseResponseCode.UNAUTHORIZED_ERROR.getCode())
+            {
                 servletRequest.getRequestDispatcher("/index/403").forward(servletRequest, servletResponse);
-            } else {
+            }
+            else
+            {
                 servletRequest.getRequestDispatcher("/index/500").forward(servletRequest, servletResponse);
             }
             return false;
-        } catch (AuthenticationException e) {
-            if (HttpContextUtils.isAjaxRequest(request)) {
-                if (e.getCause() instanceof BusinessException) {
+        }
+        catch (AuthenticationException e)
+        {
+            if (HttpContextUtils.isAjaxRequest(request))
+            {
+                if (e.getCause() instanceof BusinessException)
+                {
                     BusinessException exception = (BusinessException) e.getCause();
                     customResponse(exception.getMessageCode(), exception.getDetailMessage(), servletResponse);
-                } else {
+                }
+                else
+                {
                     customResponse(BaseResponseCode.SYSTEM_BUSY.getCode(), BaseResponseCode.SYSTEM_BUSY.getMsg(), servletResponse);
                 }
-            } else {
+            }
+            else
+            {
                 servletRequest.getRequestDispatcher("/index/403").forward(servletRequest, servletResponse);
             }
             return false;
-        } catch (Exception e) {
-            if (HttpContextUtils.isAjaxRequest(request)) {
-                if (e.getCause() instanceof BusinessException) {
+        }
+        catch (Exception e)
+        {
+            if (HttpContextUtils.isAjaxRequest(request))
+            {
+                if (e.getCause() instanceof BusinessException)
+                {
                     BusinessException exception = (BusinessException) e.getCause();
                     customResponse(exception.getMessageCode(), exception.getDetailMessage(), servletResponse);
-                } else {
+                }
+                else
+                {
                     customResponse(BaseResponseCode.SYSTEM_BUSY.getCode(), BaseResponseCode.SYSTEM_BUSY.getMsg(), servletResponse);
                 }
-            } else {
+            }
+            else
+            {
                 servletRequest.getRequestDispatcher("/index/500").forward(servletRequest, servletResponse);
             }
             return false;
@@ -98,8 +129,10 @@ public class CustomAccessControlFilter extends AccessControlFilter {
         return true;
     }
 
-    private void customResponse(int code, String msg, ServletResponse response) {
-        try {
+    private void customResponse(int code, String msg, ServletResponse response)
+    {
+        try
+        {
             DataResult result = DataResult.getResult(code, msg);
 
             response.setContentType("application/json; charset=utf-8");
@@ -109,7 +142,9 @@ public class CustomAccessControlFilter extends AccessControlFilter {
             OutputStream out = response.getOutputStream();
             out.write(userJson.getBytes(StandardCharsets.UTF_8));
             out.flush();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             log.error("error={}", e, e);
         }
     }

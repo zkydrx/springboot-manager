@@ -25,24 +25,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableKnife4j
 @Import(BeanValidatorPluginsConfiguration.class)
-public class SwaggerConfiguration {
+public class SwaggerConfiguration
+{
 
     @Bean
-    public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.company.project.controller"))
-                .paths(PathSelectors.any())
-                .build();
+    public Docket createRestApi()
+    {
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
+                                                      .select()
+                                                      .apis(RequestHandlerSelectors.basePackage("com.company.project.controller"))
+                                                      .paths(PathSelectors.any())
+                                                      .build();
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Springboot-api APIs")
-                .description("Springboot-api APIs")
-                .termsOfServiceUrl("http://localhost:8080/")
-                .version("1.0")
-                .build();
+    private ApiInfo apiInfo()
+    {
+        return new ApiInfoBuilder().title("Springboot-api APIs").description("Springboot-api APIs").termsOfServiceUrl("http://localhost:8080/").version("1.0").build();
     }
 }
